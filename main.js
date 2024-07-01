@@ -14,12 +14,12 @@ app.use(
 app.use(cors({ origin: true, credentials: false }));
 
 app.get("/", (req, res) => {
-	res.json({ info: "Api en linea" });
+	res.send({ info: "Api en linea" });
 });
 
 app.listen(port, () => {
-	console.log(`Aplicacion corriendo en el puerto ${port}.`);
-	console.log(`Acceso: http://127.0.0.1:4000/`)
+	console.log(`App corriendo en el puerto ${port}.`);
+
 });
 
 const db = require("./queries");
@@ -39,3 +39,5 @@ app.get("/updateLend/:id", db.updateLend)
 app.get("/getAllLends", db.getAllLends)
 app.get("/getUsers", db.getUsers)
 app.get("/getUser/:id", db.getUser)
+
+module.exports = app;

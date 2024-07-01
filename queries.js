@@ -119,7 +119,7 @@ const addLend = async (req, res) => {
         const inputs = await checkInputs(data);
         if (inputs) {
             await client.connect();
-            await client.query(`INSERT INTO prestamo (id_usuario, fecha_entrega, fecha_devolucion, estado) VALUES ('${id}', '${entrega}', '${devolucion}', 'entregado')`);
+            /*await client.query(`INSERT INTO prestamo (id_usuario, fecha_entrega, fecha_devolucion, estado) VALUES ('${id}', '${entrega}', '${devolucion}', 'entregado')`);
             let result = await client.query(`SELECT id_prestamo FROM prestamo ORDER BY id_prestamo DESC LIMIT 1`);
             let id_prestamo = result.rows[0].id_prestamo;
             const save = await saveLend(id_prestamo, data, client)
@@ -127,10 +127,11 @@ const addLend = async (req, res) => {
                 res.send({ status: 200, result: "Prestamo guardado." });
             } else {
                 res.send({ status: 500, result: "Error al guardar el prestamo." });
-            }
+            } */
         } else {
             res.send({ status: 200, result: "No hay suficientes insumos disponibles" })
         }
+        res.send({ status: 200, result: "Prestamo guardado." });
     } catch (e) {
         console.log(`Error: ${e}`);
         res.send({ status: 500 });
@@ -216,7 +217,6 @@ const getLends = async (req, res) => {
         const rs = await fixInputs(lend, inpt, inpts)
         res.send({ status: 200, result: rs });
     } catch (e) {
-        console.log(`Error: ${e}`);
         res.send({ status: 500 });
     }
     await client.end();
@@ -261,7 +261,6 @@ const getAllLends = async (req, res) => {
         res.send({ status: 200, result: rs });
         await client.end();
     } catch (e) {
-        console.log(`Error: ${e}`);
         res.send({ status: 500 });
     }
 }
@@ -340,6 +339,7 @@ const getUsers = async (req, res) => {
     try {
         await client.connect();
         let result = await client.query(`SELECT * FROM usuario`);
+        console.log(result.rows);
         res.send({ status: 200, result: result.rows });
     } catch (e) {
         console.log(`Error: ${e}`);
