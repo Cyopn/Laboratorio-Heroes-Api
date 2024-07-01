@@ -1,5 +1,3 @@
-const { name } = require("body-parser");
-const { status, get } = require("express/lib/response");
 const pg = require("pg");
 require("dotenv").config();
 const { database_url } = process.env;
